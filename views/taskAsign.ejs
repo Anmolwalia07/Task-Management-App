@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen text-white bg-gray-900">
+
+    <div class="flex flex-col items-center gap-5 f">
+        <!-- Task Form -->
+        <form class="bg-gray-800 text-white px-10 py-8 rounded-lg shadow-lg w-[450px]" 
+              action="/tasks/add" method="POST">
+
+            <!-- Form Header -->
+            <h2 class="mb-8 text-3xl font-bold text-center">Assign a Task</h2>
+
+            <!-- Task Title -->
+            <label class="text-xl font-semibold" for="title">Task Title:</label>
+            <input 
+                class="w-full p-3 mt-2 text-white placeholder-gray-400 bg-gray-700 border-2 border-gray-600 rounded focus:border-blue-500 focus:outline-none" 
+                type="text" id="title" name="title" placeholder="Enter title" required>
+
+            <!-- Task Description -->
+            <label class="mt-4 text-xl font-semibold" for="description">Description:</label>
+            <textarea 
+                class="w-full h-24 p-3 mt-2 text-white placeholder-gray-400 bg-gray-700 border-2 border-gray-600 rounded focus:border-blue-500 focus:outline-none" 
+                id="description" name="description" placeholder="Enter description" required></textarea>
+
+            <!-- Due Date -->
+            <label class="mt-4 text-xl font-semibold" for="dueDate">Due Date:</label>
+            <input 
+                class="w-full p-3 mt-2 text-white bg-gray-700 border-2 border-gray-600 rounded focus:border-blue-500 focus:outline-none" 
+                type="date" id="dueDate" name="dueDate">
+
+            <!-- Assign To -->
+            <label class="mt-4 text-xl font-semibold" for="assignedTo">Assign To:</label>
+            <select 
+                class="w-full p-3 mt-2 text-white bg-gray-700 border-2 border-gray-600 rounded focus:border-blue-500 focus:outline-none" 
+                id="assignedTo" name="assignedTo" required>
+                <% users.forEach(user => { %>
+                    <% if (user.role !== 'admin') { %>
+                        <option value="<%= user.id %>">
+                            <%= user.name %> (<%= user.role %>)
+                        </option>
+                    <% } %>
+                <% }); %>
+            </select>
+
+            <!-- Submit Button -->
+            <button 
+                class="w-full p-3 mt-6 text-white transition bg-blue-500 rounded-lg hover:bg-blue-600" 
+                type="submit">
+                Add Task
+            </button>
+        </form>
+        <!-- Back to Dashboard Link -->
+  <a href="/dashboard" 
+  class="px-6 py-2 text-center transition bg-red-600 rounded">
+   Back to Dashboard</a>
+    </div>
+
+</body>
+</html>
